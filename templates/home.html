@@ -1,25 +1,31 @@
 <html>
+  <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/home.css') }}"
+    />
+  </head>
   <body>
-    <h1>Add book</h1>
-    <form method="POST" action="/">
+    <h1 class="header header-add">Log a Book</h1>
+    <form class="form-add-book" method="POST" action="/">
       <input type="text" name="title" placeholder="Title" />
       <input type="text" name="author" placeholder="Author" />
       <input type="text" name="published" placeholder="Year" />
       <input type="text" name="pages" placeholder="Page Count" />
-      <input type="submit" value="Add Book" />
+      <button type="submit">Add Book</button>
     </form>
 
-    <h1>Books</h1>
-    <table>
-      {% for book in books %}
-      <tr>
-        <td>Title</td>
-        <td>Author</td>
-        <td>Published</td>
-        <td>Pages</td>
-        <td>Update Title</td>
-        <td></td>
+    <h1 class="header header-books">Books</h1>
+    <table class="table-books">
+      <tr class="books-column">
+        <td class="books-column-left">Title</td>
+        <td class="books-column-mid">Author</td>
+        <td class="books-column-mid">Published</td>
+        <td class="books-column-mid">Pages</td>
+        <td class="books-column-right">Update Title</td>
       </tr>
+      {% for book in books %}
       <tr>
         <td>{{book.title}}</td>
         <td>{{book.author}}</td>
@@ -29,13 +35,13 @@
           <form method="POST" action="./update" style="display: inline">
             <input type="hidden" value="{{book.title}}" name="oldtitle" />
             <input type="text" value="{{book.title}}" name="newtitle" />
-            <input type="submit" value="Update" />
+            <button type="submit">Update</button>
           </form>
         </td>
-        <td>
+        <td class="cell-delete">
           <form method="POST" action="./delete" style="display: inline">
             <input type="hidden" value="{{book.title}}" name="title" />
-            <input type="submit" value="Delete" />
+            <button class="button-delete" type="submit">Delete Book</button>
           </form>
         </td>
       </tr>

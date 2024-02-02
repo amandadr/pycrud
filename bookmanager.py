@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 
 app.app_context().push()
 
-# Define the Book model
+# Define the Book db model
 class Book(db.Model):
     title = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
     author = db.Column(db.String(80), unique=False, nullable=False)
