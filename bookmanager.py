@@ -2,10 +2,11 @@ import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-# Set up the Flask app
+# Set up the database
 project_dir = os.path.dirname(os.path.abspath(__file__))
 database_file = "sqlite:///{}".format(os.path.join(project_dir, "bookdatabase.db"))
 
+# Set up the Flask app
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = database_file
 
@@ -16,6 +17,9 @@ app.app_context().push()
 # Define the Book model
 class Book(db.Model):
     title = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
+    author = db.Column(db.String(80), unique=False, nullable=False)
+    published = db.Column(db.String(80), unique=False, nullable=False)
+    pages = db.Column(db.String(80), unique=False, nullable=False)
 
     def __repr__(self):
         return "<Title: {}>".format(self.title)
@@ -26,7 +30,7 @@ def home():
     books = None
     if request.form:
         try:
-            book = Book(title=request.form.get("title"))
+            book = Book(title=request.form.get("title"), author=request.form.get("author"), published=request.form.get("published"), pages=request.form.get("pages"))
             db.session.add(book)
             db.session.commit()
         except Exception as e:
