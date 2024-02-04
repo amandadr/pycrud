@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from googleapiclient.discovery import build
 
 # Set up the database
 project_dir = os.path.dirname(os.path.abspath(__file__))
@@ -24,7 +25,7 @@ class Book(db.Model):
     def __repr__(self):
         return "<Title: {}>".format(self.title)
     
-# Define the routes
+# Define local routes
 @app.route("/", methods=["GET", "POST"])
 def home():
     books = None
@@ -59,6 +60,27 @@ def delete():
     db.session.delete(book)
     db.session.commit()
     return redirect("/")
+
+# define Google Books api search route
+API_KEY = "AIzaSyAtQqQIqtd1tOTmmCCuVXGoP5O9fhk-CM0"
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        search_term = request.form['search']
+        results = search_books(search_term)
+        return render_template('home.html', search_term=search_term, results=results)
+    else:
+        return render_template('home.html')
+
+def search_books(query):
+    service = build('books', 'v1', developerKey=API_KEY)
+    request = service.volumes().list(q=query)
+    response = request.execute()
+    return response.get('items', [])
+
+    
+
   
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)

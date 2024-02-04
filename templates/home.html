@@ -16,6 +16,30 @@
       <button type="submit">Add Book</button>
     </form>
 
+    <div class="search">
+      <h1>Book Search</h1>
+      <form method="POST" action="/search">
+        <input
+          type="text"
+          name="search"
+          placeholder="Enter book title or author"
+        />
+        <button type="submit">Search</button>
+      </form>
+
+      {% if results %}
+      <h2>Search Results for "{{ search_term }}":</h2>
+      <ul>
+        {% for book in results %}
+        <li>
+          <b>{{ book['volumeInfo'].get('title', 'Title Unavailable') }}</b>
+          by {{ book['volumeInfo'].get('authors', ['Author Unavailable'])[0] }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
     <h1 class="header header-books">Books</h1>
     <table class="table-books">
       <tr class="books-column">
