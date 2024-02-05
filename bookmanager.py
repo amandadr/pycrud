@@ -15,6 +15,8 @@ db = SQLAlchemy(app)
 
 app.app_context().push()
 
+books = None
+
 # Define the Book db model
 class Book(db.Model):
     title = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
@@ -28,7 +30,6 @@ class Book(db.Model):
 # Define local routes
 @app.route("/", methods=["GET", "POST"])
 def home():
-    books = None
     if request.form:
         try:
             book = Book(title=request.form.get("title"), author=request.form.get("author"), published=request.form.get("published"), pages=request.form.get("pages"))
@@ -69,16 +70,35 @@ def search():
     if request.method == 'POST':
         search_term = request.form['search']
         results = search_books(search_term)
-        return render_template('home.html', search_term=search_term, results=results)
+        books = Book.query.all()
+        return render_template('home.html', search_term=search_term, results=results, books=books)
     else:
-        return render_template('home.html')
+        books = Book.query.all()
+        return render_template('home.html', books=books)
 
+# define Google Books api search function
 def search_books(query):
     service = build('books', 'v1', developerKey=API_KEY)
     request = service.volumes().list(q=query)
     response = request.execute()
     return response.get('items', [])
 
+# define add book route
+@app.route('/add_book', methods=['POST'])
+def add_book():
+    if request.method == 'POST':
+        book_data = request.get_json()
+        new_book = Book(title=book_data['title'],
+                        author=book_data['author'],
+                        published=book_data['published'],
+                        pages=book_data['pages'])
+        try:
+            db.session.add(new_book)
+            db.session.commit()
+            return 'Success', 200  # Return a success response 
+        except Exception as e:
+            print('Error adding book:', e)
+            return 'Error', 500  # Return an error response
     
 
   

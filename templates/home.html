@@ -1,5 +1,6 @@
 <html>
   <head>
+    <title>Book Logger</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -31,23 +32,63 @@
       <h2>Search Results for "{{ search_term }}":</h2>
       <ul>
         {% for book in results %}
-        <li>
-          <b>{{ book['volumeInfo'].get('title', 'Title Unavailable') }}</b>
-          by {{ book['volumeInfo'].get('authors', ['Author Unavailable'])[0] }}
-        </li>
+        <div class="book-result">
+          <h3>{{ book['volumeInfo'].get('title', 'Title Unavailable') }}</h3>
+          <p>by {{ book['volumeInfo'].get('authors', ['Unknown'])[0] }}</p>
+          <button
+            class="save-book"
+            data-title="{{ book['volumeInfo']['title'] }}"
+            data-author="{{ book['volumeInfo'].get('authors', ['Unknown'])[0] }}"
+            data-published="{{ book['volumeInfo'].get('publishedDate', 'Unknown') }}"
+            data-pages="{{ book['volumeInfo'].get('pageCount', 'Unknown') }}"
+          >
+            Save Book
+          </button>
+        </div>
         {% endfor %}
       </ul>
       {% endif %}
+      <!-- AJAX to save result to collection -->
+      <script>
+        const saveButtons = document.querySelectorAll(".save-book");
+        saveButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const title = this.dataset.title;
+            const author = this.dataset.author;
+            const published = this.dataset.published;
+            const pages = this.dataset.pages;
+
+            // Send AJAX request to Flask
+            fetch("/add_book", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                title: title,
+                author: author,
+                published: published,
+                pages: pages,
+              }),
+            }).then((response) => {
+              if (response.ok) {
+                alert("Book added successfully!");
+                window.location.href = "/"; // Redirect to the home route
+              } else {
+                alert("Error adding book.");
+              }
+            });
+          });
+        });
+      </script>
     </div>
 
     <h1 class="header header-books">Books</h1>
     <table class="table-books">
       <tr class="books-column">
-        <td class="books-column-left">Title</td>
-        <td class="books-column-mid">Author</td>
-        <td class="books-column-mid">Published</td>
-        <td class="books-column-mid">Pages</td>
-        <td class="books-column-right">Update Title</td>
+        <td class="books-column books-column-left">Title</td>
+        <td class="books-column books-column-mid">Author</td>
+        <td class="books-column books-column-mid">Published</td>
+        <td class="books-column books-column-mid">Pages</td>
+        <td class="books-column books-column-right">Update Title</td>
       </tr>
       {% for book in books %}
       <tr>

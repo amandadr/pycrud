@@ -1,99 +1,124 @@
+/* General Styling */
 body {
-  background-color: #f2ddb5;
-  background-image: url("https://www.transparenttextures.com/patterns/exclusive-paper.png");
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  max-width: 100vw;
+  margin: 40px;
+  background-image: url("https://www.transparenttextures.com/patterns/exclusive-paper.png");
+  background-color: #e9d6b8; /* Base weathered paper color */
 }
 
-input {
-  margin-right: 8px;
-  border: 1px solid #ccc;
-  padding: 4px;
+h1 {
+  text-align: center;
+  color: #49311c; /* Dark brown */
 }
 
-button {
-  padding: 6px 8px;
-  border: none;
-  border-radius: 4px;
-  background-color: #4caf50;
+/* Form Styling */
+.form-add-book input[type="text"] {
+  width: calc(100% - 10px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #a57a44; /* Brownish border */
+  border-radius: 5px;
+}
+
+.form-add-book button[type="submit"] {
+  background-color: #3f6826; /* Forest green */
   color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #45a049;
-}
-
-td {
-  padding: 8px;
-  border: 3px solid #696969;
-  margin: 0px;
-}
-
-.header {
-  background-color: #ae4b12;
-  background-image: url("https://www.transparenttextures.com/patterns/groovepaper.png");
-  color: white;
-  text-align: center;
+/* Search Styling */
+.search input[type="text"] {
+  width: calc(100% - 10px);
   padding: 10px;
-  margin-bottom: 32px;
+  margin-bottom: 10px;
+  border: 1px solid #a57a44; /* Brownish border */
+  border-radius: 5px;
 }
 
-.header-add {
-  margin-top: 0px;
+.search button {
+  background-color: #875d28; /* Contrasting brown */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.header-books {
-  margin-top: 32px;
+/* Book Result Styling */
+.book-result {
+  border: 1px solid #a57a44; /* Brownish border */
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #f0e8d4; /* Lighter paper color */
 }
 
-.form-add-book {
-  margin-top: 32px;
-  margin-bottom: 32px;
-  text-align: center;
+.save-book {
+  background-color: #3f6826; /* Forest green */
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
 }
 
+/* Table Styling */
 .table-books {
+  width: 100%;
   border-collapse: collapse;
-  width: 90%;
-  margin-top: 20px;
-  margin-left: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.table-books td,
+.table-books th {
+  border: 1px solid #a57a44; /* Brownish border */
+  padding: 10px;
+  text-align: left;
+}
+
+.table-books th {
+  background-color: #c7a577; /* Slightly darker for header */
+}
+
+.table-books tr {
+  background-color: #f0e8d4; /* Lighter paper color */
 }
 
 .books-column {
-  font-weight: 600;
-  text-align: center;
-}
-
-.books-column-left {
-  border-left: 0px;
-  border-top: 0px;
-}
-
-.books-column-mid {
-  border-top: 0px;
-}
-
-.books-column-right {
-  border-right: 0px;
-  border-top: 0px;
+  background-image: url("https://www.transparenttextures.com/patterns/exclusive-paper.png");
+  background-color: #c7a577; /* Slightly darker for header */
+  text-align: center !important;
 }
 
 .cell-delete {
-  border: none;
+  background-image: url("https://www.transparenttextures.com/patterns/exclusive-paper.png");
+  background-color: #e9d6b8; /* Base weathered paper color */
+  text-align: center !important;
+  border: none !important;
 }
 
 .button-delete {
-  background-color: #f44336;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  background-color: #803028; /* Mahogany */
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.button-delete:hover {
-  background-color: #d32f2f;
+/* Styling to remove top and outer borders */
+.books-column-left,
+.books-column-mid,
+.books-column-right {
+  border-top: none !important;
+}
+
+.books-column-left {
+  border-left: none !important;
+}
+
+.books-column-right {
+  border-right: none !important;
 }
