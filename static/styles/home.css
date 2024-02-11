@@ -7,8 +7,9 @@ body {
 }
 
 h1 {
-  text-align: center;
+  text-align: left;
   color: #49311c; /* Dark brown */
+  margin-top: 2em;
 }
 
 /* Form Styling */
@@ -92,7 +93,7 @@ h1 {
   text-align: center !important;
 }
 
-.cell-delete {
+.cell-buttons {
   background-image: url("https://www.transparenttextures.com/patterns/exclusive-paper.png");
   background-color: #e9d6b8; /* Base weathered paper color */
   text-align: center !important;
@@ -101,6 +102,7 @@ h1 {
 
 .button-delete {
   background-color: #803028; /* Mahogany */
+  margin-left: 1em;
   color: white;
   padding: 8px 15px;
   border: none;

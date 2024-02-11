@@ -1,5 +1,15 @@
 <form method="POST" action="./update" style="display: inline">
-  <input type="hidden" value="{{book.title}}" name="oldtitle" />
-  <input type="text" value="{{book.title}}" name="newtitle" />
+  <h5>Title:</h5>
+  <input type="hidden" value="{{book.title}}" name="oldTitle" />
+  <input type="text" value="{{book.title}}" name="newTitle" />
+  <h5>Author:</h5>
+  <input type="hidden" value="{{book.author}}" name="oldAuthor" />
+  <input type="text" value="{{book.author}}" name="newAuthor" />
+  <h5>Published:</h5>
+  <input type="hidden" value="{{book.published}}" name="oldPublished" />
+  <input type="text" value="{{book.published}}" name="newPublished" />
+  <h5>Pages:</h5>
+  <input type="hidden" value="{{book.pages}}" name="oldPages" />
+  <input type="text" value="{{book.pages}}" name="newPages" />
   <button type="submit">Update</button>
 </form>
