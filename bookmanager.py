@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from googleapiclient.discovery import build
 
@@ -53,6 +53,14 @@ def update():
         print("Couldn't update book title")
         print(e)
     return redirect("/")
+
+@app.route("/update-ajax",methods=["POST","GET"])
+def ajaxfile():
+    if request.method == 'POST':
+        title = request.form.get("title")
+        book = Book.query.filter_by(title=title).first()
+        print(title)
+    return {'htmlresponse': render_template('response.html', book=book)}
 
 @app.route("/delete", methods=["POST"])
 def delete():

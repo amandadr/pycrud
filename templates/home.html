@@ -6,6 +6,12 @@
       type="text/css"
       href="{{ url_for('static',filename='styles/home.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
   <body>
     <h1 class="header header-add">Log a Book</h1>
@@ -81,36 +87,78 @@
       </script>
     </div>
 
-    <h1 class="header header-books">Books</h1>
-    <table class="table-books">
-      <tr class="books-column">
-        <td class="books-column books-column-left">Title</td>
-        <td class="books-column books-column-mid">Author</td>
-        <td class="books-column books-column-mid">Published</td>
-        <td class="books-column books-column-mid">Pages</td>
-        <td class="books-column books-column-right">Update Title</td>
-      </tr>
-      {% for book in books %}
-      <tr>
-        <td>{{book.title}}</td>
-        <td>{{book.author}}</td>
-        <td>{{book.published}}</td>
-        <td>{{book.pages}}</td>
-        <td>
-          <form method="POST" action="./update" style="display: inline">
+    <div class="container-books">
+      <h1 class="header header-books">Books</h1>
+      <table class="table-books">
+        <tr class="books-column">
+          <td class="books-column books-column-left">Title</td>
+          <td class="books-column books-column-mid">Author</td>
+          <td class="books-column books-column-mid">Published</td>
+          <td class="books-column books-column-mid">Pages</td>
+          <td class="books-column books-column-right">Update Title</td>
+        </tr>
+        {% for book in books %}
+        <tr>
+          <td>{{book.title}}</td>
+          <td>{{book.author}}</td>
+          <td>{{book.published}}</td>
+          <td>{{book.pages}}</td>
+          <td>
+            <!-- <form method="POST" action="./update" style="display: inline">
             <input type="hidden" value="{{book.title}}" name="oldtitle" />
             <input type="text" value="{{book.title}}" name="newtitle" />
             <button type="submit">Update</button>
-          </form>
-        </td>
-        <td class="cell-delete">
-          <form method="POST" action="./delete" style="display: inline">
-            <input type="hidden" value="{{book.title}}" name="title" />
-            <button class="button-delete" type="submit">Delete Book</button>
-          </form>
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
+          </form> -->
+            <button
+              data-title="{{book.title}}"
+              class="updateinfo btn btn-success"
+            >
+              Update Book
+            </button>
+          </td>
+          <td class="cell-delete">
+            <form method="POST" action="./delete" style="display: inline">
+              <input type="hidden" value="{{book.title}}" name="title" />
+              <button class="button-delete" type="submit">Delete Book</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $(".updateinfo").click(function () {
+            var title = $(this).data("title");
+            $.ajax({
+              url: "/update-ajax",
+              type: "post",
+              data: { title: title },
+              success: function (data) {
+                $(".modal-body").html(data);
+                $(".modal-body").append(data.htmlresponse);
+                $("#updateModal").modal("show");
+              },
+            });
+          });
+        });
+      </script>
+    </div>
+
+    <div class="modal fade" id="updateModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">User Info</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
