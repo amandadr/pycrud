@@ -44,10 +44,16 @@ def home():
 @app.route("/update", methods=["POST"])
 def update():
     try:
-        newtitle = request.form.get("newtitle")
-        oldtitle = request.form.get("oldtitle")
-        book = Book.query.filter_by(title=oldtitle).first()
-        book.title = newtitle
+        newTitle = request.form.get("newTitle")
+        oldTitle = request.form.get("oldTitle")
+        newAuthor = request.form.get("newAuthor")
+        newPublished = request.form.get("newPublished")
+        newPages = request.form.get("newPages")
+        book = Book.query.filter_by(title=oldTitle).first()
+        book.title = newTitle
+        book.author = newAuthor
+        book.published = newPublished
+        book.pages = newPages
         db.session.commit()
     except Exception as e:
         print("Couldn't update book title")

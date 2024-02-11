@@ -1,19 +1,21 @@
 <html>
   <head>
-    <title>Book Logger</title>
+    <title>Py Bookshelf</title>
+    <link
+      rel="stylesheet"
+      href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    />
     <link
       rel="stylesheet"
       type="text/css"
       href="{{ url_for('static',filename='styles/home.css') }}"
     />
-    <link
-      rel="stylesheet"
-      href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
   <body>
+    <h1>Welcome to your Bookshelf</h1>
+    <div>Add a book manually or search Google for your current read :)</div>
     <h1 class="header header-add">Log a Book</h1>
     <form class="form-add-book" method="POST" action="/">
       <input type="text" name="title" placeholder="Title" />
@@ -88,14 +90,13 @@
     </div>
 
     <div class="container-books">
-      <h1 class="header header-books">Books</h1>
+      <h1 class="header header-books">My Bookshelf</h1>
       <table class="table-books">
         <tr class="books-column">
           <td class="books-column books-column-left">Title</td>
           <td class="books-column books-column-mid">Author</td>
           <td class="books-column books-column-mid">Published</td>
           <td class="books-column books-column-mid">Pages</td>
-          <td class="books-column books-column-right">Update Title</td>
         </tr>
         {% for book in books %}
         <tr>
@@ -103,23 +104,20 @@
           <td>{{book.author}}</td>
           <td>{{book.published}}</td>
           <td>{{book.pages}}</td>
-          <td>
-            <!-- <form method="POST" action="./update" style="display: inline">
-            <input type="hidden" value="{{book.title}}" name="oldtitle" />
-            <input type="text" value="{{book.title}}" name="newtitle" />
-            <button type="submit">Update</button>
-          </form> -->
+          <!-- <td class="cell-update">
+          </td> -->
+          <td class="cell-buttons">
             <button
               data-title="{{book.title}}"
               class="updateinfo btn btn-success"
             >
               Update Book
             </button>
-          </td>
-          <td class="cell-delete">
             <form method="POST" action="./delete" style="display: inline">
               <input type="hidden" value="{{book.title}}" name="title" />
-              <button class="button-delete" type="submit">Delete Book</button>
+              <button class="button-delete btn" type="submit">
+                Delete Book
+              </button>
             </form>
           </td>
         </tr>
@@ -148,13 +146,19 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">User Info</h4>
-            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3 class="modal-title">Edit Book Info:</h3>
+            <button type="button" class="modal-close btn" data-dismiss="modal">
+              ×
+            </button>
           </div>
           <div class="modal-body"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">
-              Close
+            <button
+              type="button"
+              class="modal-cancel btn btn-default"
+              data-dismiss="modal"
+            >
+              Cancel Edits
             </button>
           </div>
         </div>

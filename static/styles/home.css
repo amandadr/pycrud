@@ -7,8 +7,9 @@ body {
 }
 
 h1 {
-  text-align: center;
+  text-align: left;
   color: #49311c; /* Dark brown */
+  margin-top: 2em;
 }
 
 /* Form Styling */
@@ -65,7 +66,7 @@ h1 {
   margin-top: 5px;
 }
 
-/* Table Styling */
+/* My Bookshelf Table Styling */
 .table-books {
   width: 100%;
   border-collapse: collapse;
@@ -92,7 +93,7 @@ h1 {
   text-align: center !important;
 }
 
-.cell-delete {
+.cell-buttons {
   background-image: url("https://www.transparenttextures.com/patterns/exclusive-paper.png");
   background-color: #e9d6b8; /* Base weathered paper color */
   text-align: center !important;
@@ -101,6 +102,7 @@ h1 {
 
 .button-delete {
   background-color: #803028; /* Mahogany */
+  margin-left: 1em;
   color: white;
   padding: 8px 15px;
   border: none;
@@ -121,4 +123,88 @@ h1 {
 
 .books-column-right {
   border-right: none !important;
+}
+
+/* Modal Styling */
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  background-color: #f0e8d4; /* Lighter paper color */
+  padding: 8px;
+  border: 2px solid #a57a44; /* Brownish border */
+  border-radius: 5px;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 100%;
+  color: #49311c; /* Dark brown */
+  background-color: #c7a577; /* Slightly darker for header */
+  border-bottom: 4px solid #49311c; /* Dark brown */
+  padding: 10px 20px;
+  border-radius: 5px 5px 0 0;
+}
+
+.modal-title {
+  color: #49311c; /* Dark brown */
+  flex: 1;
+  font-weight: 500;
+  border-radius: 5px;
+}
+
+.modal-close {
+  background-color: #803028; /* Mahogany */
+  color: white;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-body-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  height: fit-content;
+}
+
+.modal-body-header {
+  width: 100%;
+  background-color: #c7a577; /* Slightly darker for header */
+  padding: 10px;
+  border: 1px solid #a57a44; /* Brownish border */
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.modal-body-input {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #a57a44; /* Brownish border */
+  border-radius: 5px;
+}
+
+.modal-submit {
+  background-color: #3f6826; /* Forest green */
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.modal-cancel {
+  background-color: #803028; /* Mahogany */
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: -32px;
 }
