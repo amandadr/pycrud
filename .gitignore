@@ -1,1 +1,2 @@
-/pycrud/*
+**/pycrud
+/pycrud/lib/*
