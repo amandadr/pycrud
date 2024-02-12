@@ -66,7 +66,7 @@ def ajaxfile():
         title = request.form.get("title")
         book = Book.query.filter_by(title=title).first()
         print(title)
-    return {'htmlresponse': render_template('response.html', book=book)}
+    return {'htmlresponse': render_template('modal.html', book=book)}
 
 @app.route("/delete", methods=["POST"])
 def delete():

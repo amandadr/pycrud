@@ -20,6 +20,7 @@
   <body>
     <h1>Welcome to your Bookshelf</h1>
     <div>Add a book manually or search Google for your current read :)</div>
+    <!-- LOG A BOOK -->
     <h1 class="header header-add">Log a Book</h1>
     <form class="form-add-book" method="POST" action="/">
       <input type="text" name="title" placeholder="Title" />
@@ -28,18 +29,17 @@
       <input type="text" name="pages" placeholder="Page Count" />
       <button type="submit">Add Book</button>
     </form>
-
+    <!-- BOOK SEARCH -->
     <div class="search">
       <h1>Book Search</h1>
       <form method="POST" action="/search">
         <input
           type="text"
           name="search"
-          placeholder="Enter book title or author"
+          placeholder="Enter a keyword or ISBN..."
         />
         <button type="submit">Search</button>
       </form>
-
       {% if results %}
       <h2>Search Results for "{{ search_term }}":</h2>
       <ul>
@@ -60,7 +60,7 @@
         {% endfor %}
       </ul>
       {% endif %}
-      <!-- AJAX to save result to collection -->
+      <!-- Save result to collection with AJAX -->
       <script>
         const saveButtons = document.querySelectorAll(".save-book");
         saveButtons.forEach((button) => {
@@ -92,7 +92,7 @@
         });
       </script>
     </div>
-
+    <!-- MY BOOKSHELF -->
     <div class="container-books">
       <h1 class="header header-books">My Bookshelf</h1>
       <table class="table-books">
@@ -108,8 +108,6 @@
           <td>{{book.author}}</td>
           <td>{{book.published}}</td>
           <td>{{book.pages}}</td>
-          <!-- <td class="cell-update">
-          </td> -->
           <td class="cell-buttons">
             <button
               data-title="{{book.title}}"
@@ -145,7 +143,7 @@
         });
       </script>
     </div>
-
+    <!-- EDIT BOOK MODAL -->
     <div class="modal fade" id="updateModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -156,6 +154,7 @@
             </button>
           </div>
           <div class="modal-body"></div>
+          <!-- AJAX response / modal.html goes here -->
           <div class="modal-footer">
             <button
               type="button"
