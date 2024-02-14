@@ -1,7 +1,8 @@
 import os
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from googleapiclient.discovery import build
+from config import API_KEY
 
 # Set up the database
 project_dir = os.path.dirname(os.path.abspath(__file__))
@@ -23,6 +24,7 @@ class Book(db.Model):
     author = db.Column(db.String(80), unique=False, nullable=False)
     published = db.Column(db.String(80), unique=False, nullable=False)
     pages = db.Column(db.String(80), unique=False, nullable=False)
+    ISBN = db.Column(db.String(80), unique=False, nullable=True)
 
     def __repr__(self):
         return "<Title: {}>".format(self.title)
@@ -32,7 +34,7 @@ class Book(db.Model):
 def home():
     if request.form:
         try:
-            book = Book(title=request.form.get("title"), author=request.form.get("author"), published=request.form.get("published"), pages=request.form.get("pages"))
+            book = Book(title=request.form.get("title"), author=request.form.get("author"), published=request.form.get("published"), pages=request.form.get("pages"), ISBN=request.form.get("ISBN"))
             db.session.add(book)
             db.session.commit()
         except Exception as e:
@@ -77,8 +79,6 @@ def delete():
     return redirect("/")
 
 # define Google Books api search route
-API_KEY = "AIzaSyAtQqQIqtd1tOTmmCCuVXGoP5O9fhk-CM0"
-
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
@@ -91,9 +91,11 @@ def search():
         return render_template('home.html', books=books)
 
 # define Google Books api search function
-def search_books(query):
+def search_books(query, max_results=10, start_index=0):
     service = build('books', 'v1', developerKey=API_KEY)
-    request = service.volumes().list(q=query)
+    request = service.volumes().list(q=query, 
+                                     maxResults=max_results,  # Specify desired results per request
+                                     startIndex=start_index)  # Start of the batch to retrieve
     response = request.execute()
     return response.get('items', [])
 
@@ -105,7 +107,8 @@ def add_book():
         new_book = Book(title=book_data['title'],
                         author=book_data['author'],
                         published=book_data['published'],
-                        pages=book_data['pages'])
+                        pages=book_data['pages'],
+                        ISBN=book_data['ISBN'])
         try:
             db.session.add(new_book)
             db.session.commit()

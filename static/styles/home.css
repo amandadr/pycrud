@@ -48,6 +48,11 @@ h1 {
   cursor: pointer;
 }
 
+.search-results {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
 /* Book Result Styling */
 .book-result {
   border: 1px solid #a57a44; /* Brownish border */

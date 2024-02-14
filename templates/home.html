@@ -27,6 +27,7 @@
       <input type="text" name="author" placeholder="Author" />
       <input type="text" name="published" placeholder="Year" />
       <input type="text" name="pages" placeholder="Page Count" />
+      <input type="text" name="ISBN" placeholder="ISBN" />
       <button type="submit">Add Book</button>
     </form>
     <!-- BOOK SEARCH -->
@@ -42,23 +43,30 @@
       </form>
       {% if results %}
       <h2>Search Results for "{{ search_term }}":</h2>
-      <ul>
-        {% for book in results %}
-        <div class="book-result">
-          <h3>{{ book['volumeInfo'].get('title', 'Title Unavailable') }}</h3>
-          <p>by {{ book['volumeInfo'].get('authors', ['Unknown'])[0] }}</p>
-          <button
-            class="save-book"
-            data-title="{{ book['volumeInfo']['title'] }}"
-            data-author="{{ book['volumeInfo'].get('authors', ['Unknown'])[0] }}"
-            data-published="{{ book['volumeInfo'].get('publishedDate', 'Unknown') }}"
-            data-pages="{{ book['volumeInfo'].get('pageCount', 'Unknown') }}"
-          >
-            Save Book
-          </button>
-        </div>
-        {% endfor %}
-      </ul>
+      <div class="search-results">
+        <ul class="scrollable-results">
+          {% for book in results %}
+          <div class="book-result">
+            <h3>{{ book['volumeInfo'].get('title', 'Title Unavailable') }}</h3>
+            <p>by {{ book['volumeInfo'].get('authors', ['Unknown'])[0] }}</p>
+            <p>
+              ISBN: {{ book['volumeInfo'].get('industryIdentifiers',
+              ['Unknown'])[0]['identifier'] }}
+            </p>
+            <button
+              class="save-book"
+              data-title="{{ book['volumeInfo']['title'] }}"
+              data-author="{{ book['volumeInfo'].get('authors', ['Unknown'])[0] }}"
+              data-published="{{ book['volumeInfo'].get('publishedDate', 'Unknown') }}"
+              data-pages="{{ book['volumeInfo'].get('pageCount', 'Unknown') }}"
+              data-ISBN="{{ book['volumeInfo'].get('industryIdentifiers', ['Unknown'])[0]['identifier'] }}"
+            >
+              Save Book
+            </button>
+          </div>
+          {% endfor %}
+        </ul>
+      </div>
       {% endif %}
       <!-- Save result to collection with AJAX -->
       <script>
@@ -69,6 +77,7 @@
             const author = this.dataset.author;
             const published = this.dataset.published;
             const pages = this.dataset.pages;
+            const ISBN = this.dataset.isbn;
 
             // Send AJAX request to Flask
             fetch("/add_book", {
@@ -79,6 +88,7 @@
                 author: author,
                 published: published,
                 pages: pages,
+                ISBN: ISBN,
               }),
             }).then((response) => {
               if (response.ok) {
