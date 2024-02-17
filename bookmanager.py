@@ -1,8 +1,12 @@
 import os
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from googleapiclient.discovery import build
 from config import API_KEY
+
+# Set this file to flask app environment
+os.environ['FLASK_APP'] = 'bookmanager.py'
 
 # Set up the database
 project_dir = os.path.dirname(os.path.abspath(__file__))
@@ -13,10 +17,12 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = database_file
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 app.app_context().push()
 
 books = None
+default_cover = "https://nanowrimo.org/images/projects/default-cover.svg"
 
 # Define the Book db model
 class Book(db.Model):
@@ -25,6 +31,7 @@ class Book(db.Model):
     published = db.Column(db.String(80), unique=False, nullable=False)
     pages = db.Column(db.String(80), unique=False, nullable=False)
     ISBN = db.Column(db.String(80), unique=False, nullable=True)
+    cover = db.Column(db.String(80), unique=False, nullable=True)
 
     def __repr__(self):
         return "<Title: {}>".format(self.title)
@@ -34,7 +41,7 @@ class Book(db.Model):
 def home():
     if request.form:
         try:
-            book = Book(title=request.form.get("title"), author=request.form.get("author"), published=request.form.get("published"), pages=request.form.get("pages"), ISBN=request.form.get("ISBN"))
+            book = Book(title=request.form.get("title"), author=request.form.get("author"), published=request.form.get("published"), pages=request.form.get("pages"), ISBN=request.form.get("ISBN"), cover=default_cover)
             db.session.add(book)
             db.session.commit()
         except Exception as e:
@@ -108,7 +115,8 @@ def add_book():
                         author=book_data['author'],
                         published=book_data['published'],
                         pages=book_data['pages'],
-                        ISBN=book_data['ISBN'])
+                        ISBN=book_data['ISBN'],
+                        cover=book_data['cover'])
         try:
             db.session.add(new_book)
             db.session.commit()

@@ -31,9 +31,17 @@ h1 {
 }
 
 /* Search Styling */
+.search-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: left;
+}
+
 .search input[type="text"] {
   width: calc(100% - 10px);
   padding: 10px;
+  margin-top: 10px;
   margin-bottom: 10px;
   border: 1px solid #a57a44; /* Brownish border */
   border-radius: 5px;
@@ -48,9 +56,23 @@ h1 {
   cursor: pointer;
 }
 
+.search-results-header {
+  margin-left: 1em;
+}
+
 .search-results {
   max-height: 70vh;
   overflow-y: auto;
+  width: 60vw;
+  padding: 1em;
+}
+
+.scrollable-results {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Book Result Styling */
@@ -59,16 +81,37 @@ h1 {
   padding: 15px;
   margin-bottom: 10px;
   background-color: #f0e8d4; /* Lighter paper color */
+  min-width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.book-result-cover {
+  max-height: 15em;
+  border: 0.4em solid #a57a44; /* Brownish border */
+}
+
+.book-result-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+  margin-left: 0.5em;
 }
 
 .save-book {
-  background-color: #3f6826; /* Forest green */
+  background-color: #3f6826 !important; /* Forest green */
   color: white;
+  width: 50%;
   padding: 8px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 5px;
+  margin-top: 1em;
 }
 
 /* My Bookshelf Table Styling */
@@ -92,15 +135,32 @@ h1 {
   background-color: #f0e8d4; /* Lighter paper color */
 }
 
+.no-column {
+  background-image: url("https://www.transparenttextures.com/patterns/exclusive-paper.png");
+  background-color: #e9d6b8; /* Base weathered paper color */
+  border: none !important;
+}
+
 .books-column {
   background-image: url("https://www.transparenttextures.com/patterns/exclusive-paper.png");
   background-color: #c7a577; /* Slightly darker for header */
   text-align: center !important;
 }
 
+.book-cover-column {
+  background-image: url("https://www.transparenttextures.com/patterns/exclusive-paper.png");
+  background-color: #c7a577; /* Slightly darker for header */
+  text-align: center !important;
+}
+
+.book-cover {
+  max-height: 15em;
+  border: 0.1em solid #a579449f; /* Brownish border */
+}
+
 .cell-buttons {
   background-image: url("https://www.transparenttextures.com/patterns/exclusive-paper.png");
-  background-color: #e9d6b8; /* Base weathered paper color */
+  background-color: #e9d6b8 !important; /* Base weathered paper color */
   text-align: center !important;
   border: none !important;
 }

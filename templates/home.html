@@ -32,37 +32,51 @@
     </form>
     <!-- BOOK SEARCH -->
     <div class="search">
-      <h1>Book Search</h1>
-      <form method="POST" action="/search">
-        <input
-          type="text"
-          name="search"
-          placeholder="Enter a keyword or ISBN..."
-        />
-        <button type="submit">Search</button>
-      </form>
+      <div class="search-form-container">
+        <h1>Book Search</h1>
+        <form method="POST" action="/search">
+          <input
+            type="text"
+            name="search"
+            placeholder="Enter a keyword or ISBN..."
+          />
+          <button type="submit">Search</button>
+        </form>
+      </div>
       {% if results %}
-      <h2>Search Results for "{{ search_term }}":</h2>
+      <h2 class="search-results-header">
+        Search Results for "{{ search_term }}":
+      </h2>
       <div class="search-results">
         <ul class="scrollable-results">
           {% for book in results %}
           <div class="book-result">
-            <h3>{{ book['volumeInfo'].get('title', 'Title Unavailable') }}</h3>
-            <p>by {{ book['volumeInfo'].get('authors', ['Unknown'])[0] }}</p>
-            <p>
-              ISBN: {{ book['volumeInfo'].get('industryIdentifiers',
-              ['Unknown'])[0]['identifier'] }}
-            </p>
-            <button
-              class="save-book"
-              data-title="{{ book['volumeInfo']['title'] }}"
-              data-author="{{ book['volumeInfo'].get('authors', ['Unknown'])[0] }}"
-              data-published="{{ book['volumeInfo'].get('publishedDate', 'Unknown') }}"
-              data-pages="{{ book['volumeInfo'].get('pageCount', 'Unknown') }}"
-              data-ISBN="{{ book['volumeInfo'].get('industryIdentifiers', ['Unknown'])[0]['identifier'] }}"
-            >
-              Save Book
-            </button>
+            <img
+              src="{{ book['volumeInfo'].get('imageLinks', {'thumbnail': 'https://via.placeholder.com/128x196.png?text=No+Image'})['thumbnail'] }}"
+              alt="Book Cover"
+              class="book-result-cover"
+            />
+            <div class="book-result-info">
+              <h3>
+                {{ book['volumeInfo'].get('title', 'Title Unavailable') }}
+              </h3>
+              <p>by {{ book['volumeInfo'].get('authors', ['Unknown'])[0] }}</p>
+              <p>
+                ISBN: {{ book['volumeInfo'].get('industryIdentifiers',
+                ['Unknown'])[0]['identifier'] }}
+              </p>
+              <button
+                class="save-book"
+                data-title="{{ book['volumeInfo']['title'] }}"
+                data-author="{{ book['volumeInfo'].get('authors', ['Unknown'])[0] }}"
+                data-published="{{ book['volumeInfo'].get('publishedDate', 'Unknown') }}"
+                data-pages="{{ book['volumeInfo'].get('pageCount', 'Unknown') }}"
+                data-ISBN="{{ book['volumeInfo'].get('industryIdentifiers', ['Unknown'])[0]['identifier'] }}"
+                data-cover="{{ book['volumeInfo'].get('imageLinks', {'thumbnail': 'https://via.placeholder.com/128x196.png?text=No+Image'})['thumbnail'] }}"
+              >
+                Save Book
+              </button>
+            </div>
           </div>
           {% endfor %}
         </ul>
@@ -78,6 +92,7 @@
             const published = this.dataset.published;
             const pages = this.dataset.pages;
             const ISBN = this.dataset.isbn;
+            const cover = this.dataset.cover;
 
             // Send AJAX request to Flask
             fetch("/add_book", {
@@ -89,6 +104,7 @@
                 published: published,
                 pages: pages,
                 ISBN: ISBN,
+                cover: cover,
               }),
             }).then((response) => {
               if (response.ok) {
@@ -107,6 +123,7 @@
       <h1 class="header header-books">My Bookshelf</h1>
       <table class="table-books">
         <tr class="books-column">
+          <td class="no-column"></td>
           <td class="books-column books-column-left">Title</td>
           <td class="books-column books-column-mid">Author</td>
           <td class="books-column books-column-mid">Published</td>
@@ -114,6 +131,9 @@
         </tr>
         {% for book in books %}
         <tr>
+          <td class="book-cover-column">
+            <img src="{{ book.cover }}" alt="Book Cover" class="book-cover" />
+          </td>
           <td>{{book.title}}</td>
           <td>{{book.author}}</td>
           <td>{{book.published}}</td>
