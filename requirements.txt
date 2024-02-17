@@ -1,5 +1,12 @@
 flask
-sqlalchemy
-flask_sqlalchemy
 flask-migrate
+flask-sqlalchemy
+sqlalchemy
 google-api-python-client
+click
+colorama
+itsdangerous
+Jinja2
+MarkupSafe
+Werkzeug
+gunicorn
