@@ -28,7 +28,7 @@
       <input type="text" name="published" placeholder="Year" />
       <input type="text" name="pages" placeholder="Page Count" />
       <input type="text" name="ISBN" placeholder="ISBN" />
-      <button type="submit">Add Book</button>
+      <button class="add-book-button" type="submit">Add Book</button>
     </form>
     <!-- BOOK SEARCH -->
     <div class="search">
@@ -121,6 +121,8 @@
     <!-- MY BOOKSHELF -->
     <div class="container-books">
       <h1 class="header header-books">My Bookshelf</h1>
+      <!-- EDIT BOOK MODAL -->
+      <div class="modal fade" id="updateModal" role="dialog"></div>
       <table class="table-books">
         <tr class="books-column">
           <td class="no-column"></td>
@@ -173,7 +175,5 @@
         });
       </script>
     </div>
-    <!-- EDIT BOOK MODAL -->
-    <div class="modal fade" id="updateModal" role="dialog"></div>
   </body>
 </html>

@@ -21,7 +21,7 @@ h1 {
   border-radius: 5px;
 }
 
-.form-add-book button[type="submit"] {
+.add-book-button {
   background-color: #3f6826; /* Forest green */
   color: white;
   padding: 10px 20px;
