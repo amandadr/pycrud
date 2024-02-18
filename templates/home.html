@@ -164,8 +164,8 @@
               type: "post",
               data: { title: title },
               success: function (data) {
-                $(".modal-body").html(data);
-                $(".modal-body").append(data.htmlresponse);
+                $(".modal").html(data);
+                $(".modal").append(data.htmlresponse);
                 $("#updateModal").modal("show");
               },
             });
@@ -174,28 +174,6 @@
       </script>
     </div>
     <!-- EDIT BOOK MODAL -->
-    <div class="modal fade" id="updateModal" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title">Edit Book Info:</h3>
-            <button type="button" class="modal-close btn" data-dismiss="modal">
-              ×
-            </button>
-          </div>
-          <div class="modal-body"></div>
-          <!-- AJAX response / modal.html goes here -->
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="modal-cancel btn btn-default"
-              data-dismiss="modal"
-            >
-              Cancel Edits
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="modal fade" id="updateModal" role="dialog"></div>
   </body>
 </html>

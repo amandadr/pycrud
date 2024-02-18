@@ -1,37 +1,58 @@
-<form method="POST" action="./update" style="display: inline">
-  <div class="modal-body-container">
-    <h5 class="modal-body-header">Title:</h5>
-    <input type="hidden" value="{{book.title}}" name="oldTitle" />
-    <input
-      class="modal-body-input"
-      type="text"
-      value="{{book.title}}"
-      name="newTitle"
-    />
-    <h5 class="modal-body-header">Author:</h5>
-    <input type="hidden" value="{{book.author}}" name="oldAuthor" />
-    <input
-      class="modal-body-input"
-      type="text"
-      value="{{book.author}}"
-      name="newAuthor"
-    />
-    <h5 class="modal-body-header">Published:</h5>
-    <input type="hidden" value="{{book.published}}" name="oldPublished" />
-    <input
-      class="modal-body-input"
-      type="text"
-      value="{{book.published}}"
-      name="newPublished"
-    />
-    <h5 class="modal-body-header">Pages:</h5>
-    <input type="hidden" value="{{book.pages}}" name="oldPages" />
-    <input
-      class="modal-body-input"
-      type="text"
-      value="{{book.pages}}"
-      name="newPages"
-    />
-    <button class="modal-submit" type="submit">Update</button>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Edit Book Info:</h3>
+      <button type="button" class="modal-close btn" data-dismiss="modal">
+        ×
+      </button>
+    </div>
+    <div class="modal-body">
+      <form method="POST" action="./update" style="display: inline">
+        <div class="modal-body-container">
+          <h5 class="modal-body-header">Title:</h5>
+          <input type="hidden" value="{{book.title}}" name="oldTitle" />
+          <input
+            class="modal-body-input"
+            type="text"
+            value="{{book.title}}"
+            name="newTitle"
+          />
+          <h5 class="modal-body-header">Author:</h5>
+          <input type="hidden" value="{{book.author}}" name="oldAuthor" />
+          <input
+            class="modal-body-input"
+            type="text"
+            value="{{book.author}}"
+            name="newAuthor"
+          />
+          <h5 class="modal-body-header">Published:</h5>
+          <input type="hidden" value="{{book.published}}" name="oldPublished" />
+          <input
+            class="modal-body-input"
+            type="text"
+            value="{{book.published}}"
+            name="newPublished"
+          />
+          <h5 class="modal-body-header">Pages:</h5>
+          <input type="hidden" value="{{book.pages}}" name="oldPages" />
+          <input
+            class="modal-body-input"
+            type="text"
+            value="{{book.pages}}"
+            name="newPages"
+          />
+          <button class="modal-submit" type="submit">Update</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="modal-cancel btn btn-default"
+        data-dismiss="modal"
+      >
+        Cancel Edits
+      </button>
+    </div>
   </div>
-</form>
+</div>
